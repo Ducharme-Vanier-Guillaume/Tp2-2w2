@@ -1,0 +1,983 @@
+/* Pour importer la font */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Varela+Round&display=swap');
+
+:root{
+    --couleur-base: white;
+    --couler-fonce: black;
+    --couleur-orange: orange;
+    --couler-orange-pale: coral;
+    --couleur-bare-chargement: #f3c623;
+    --couleur-contour-btn1: #91795b;
+    --couleur-bonne-reponse: green;
+    --couleur-bonne-reponse-contour: greenyellow;
+    --couleur-mauvaise-reponse: rgb(255, 110, 110);
+    --couleur-mauvaise-reponse-contour : orangered;
+}
+
+/*/////////////////////////////////////////////////////// INTRO //////////////////////////////////////////*/
+
+/* A tester sur les dimensions e l'iphone XR pour les conditons favorables en mobile */ 
+
+/* Le style pour le cercle qui troune au départ, on lui applique l'animation
+    'loader' qui fait tourné le rond sur lui meme */
+.chargement{
+    margin: 3em;
+    border: 16px solid var(--couleur-base);
+    border-radius: 50%;
+    border-top: 16px solid var(--couler-fonce);
+    width: 120px;
+    height: 120px;
+    /* On lui fait faire un tour sur lui-meme pendant 2s à l'infini */
+    animation: loader 2s linear infinite;
+}
+
+/* Transforme la rotation */
+@keyframes loader {
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* Le texte d'intro, on lui applique un background que l'on incrémente comme fond du
+    texte grace à sa couleur transparente, on lui fait alors jouer une animation qui bouge le fond */
+.texte-intro{
+    font-family: 'Bebas Neue', cursive;
+    font-weight: bolder;
+    font-size: 5rem;
+    letter-spacing: 10px;
+    color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /*  On applique l'animation en 13s à l'infini*/
+    animation: fondIntroAnimation 13s cubic-bezier(0.3,0,0.7,1) infinite;
+    background-image: url(../images/fondIntro.jpg);
+    background-size: cover;
+    text-align: center;
+}
+
+/* L'animation pour faire bouger le fond, on modifie sa postion en 3 temps */
+@keyframes fondIntroAnimation{
+    from{
+        background-position: 0% 0%;
+    }
+    50%{
+        background-position: 100% 100%;
+    }
+    to{
+        background-position: 0% 0%;
+    }
+}
+
+/* .conteneur est la div qui contient la barre de chargement, on fait qu'a la fin de l'animation
+    l'image reste celle de la fin grace à forwards et on attend 5s avant que l'animaiton commence */
+.conteneur {
+    margin: 3rem;
+    width: 25rem;
+    animation-fill-mode: forwards;;
+    animation-fill-mode: forwards;
+    animation-delay: 5s;
+  }
+
+/* la barre blanche du départ */ 
+.progres1 {
+border-radius: 30px;
+background-color: var(--couleur-base);
+}
+
+/* on transforme la ligne */
+.progres1-bar2 {
+height: 18px;
+border-radius: 30px;
+transition: 0.4s linear;
+transition-property: width, background-color;
+}
+
+/* On change la couleur grace à l'animation progres qui dure 5s */
+.progres1-avance .progres1-bar2 {
+    background-color: var(--couleur-bare-chargement);
+    animation: progres 5s;
+}
+
+/*  Change la couleur de la barre */
+@keyframes progres {
+    0% {
+        width: 0%;
+        background: #f9bcca;
+    } 
+    100% {
+        width: 100%;
+        background: var(--couleur-bare-chargement);
+        box-shadow: 0 0 40px var(--couleur-bare-chargement);
+    }
+  }
+ 
+/* Le style pour le bouton Jouer, au quel grace au box shadow, on donne un effet de 3D, on lui incrémente
+    par programmation l'animation opaciteBoutonJouer qui une fois l'animation de la barre de chargement fini
+    on l'active faisant apparaitre le bouton. */  
+  .boutonJouer{
+      background-color: antiquewhite;
+      width: 24vh;
+      height: 9vh;
+      letter-spacing: 1vh;
+      font-size: 3rem;
+      text-align: center;
+      color: var(--couler-fonce);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 19px;
+      font-family: 'Bebas Neue';
+      box-shadow: 0 6px var(--couleur-contour-btn1);
+      position: relative;
+      animation: opaciteBoutonJouer 3s;
+    }
+    
+    @keyframes opaciteBoutonJouer{
+        from{opacity: 0;}
+        to{opacity: 100%;}
+    }
+    
+    /*  Lorsque on hover par dessus, on enfonce un peu le bouton*/
+    .boutonJouer:hover{
+        box-shadow: 0 4px var(--couleur-contour-btn1);
+        top: 2px;
+    }
+    
+    /* Quand on click dessus, on enfonce le bouton */
+    .boutonJouer:active{
+        box-shadow: 0 0 var(--couleur-contour-btn1);
+        top: 6px;
+    }
+
+/* Le style de base de l'intro */  
+  .intro{
+      width: 100%;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--couleur-orange);
+  }
+  
+/* L'animation pour faire bouger l'intro vers le haut qui sera appliquer par programation
+    à .intro lorsque l'utilisateur aura clicker sur le bouton Jouer */  
+@keyframes bouger-intro {
+    from{
+        transform: translateY(0%);
+    }
+    40%{
+        transform: translateY(0%);
+    }
+    to{
+        transform: translateY(-100%);
+    }
+}
+
+/*/////////////////////////////////////////////////////// QUIZ ////////////////////////////////////////////////// */
+
+/* Le style de base de la partie quiz*/
+.quiz{
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    background-image: url(../images/fondQuiz.jpg) ;
+    background-size: cover;
+    flex-direction: column;    
+}
+
+/* L'animation pour faire bouger le quiz vers le haut qui sera appliquer par programation au
+    .quiz lorsque l'utilisateur aura clicker sur le bouton Jouer */
+@keyframes bouger-quiz {
+    from{
+        transform: translateY(0%);
+    }
+    40%{
+        transform: translateY(0%);
+    }
+    to{
+        transform: translateY(-100%);
+    }
+}
+
+/* On applique une positoin relative au header pour faire bouger l'avion */
+.quiz > header {
+    position: relative;
+}
+
+/* l'image de l'avion placer à gauche qui avancera grace à la programation js qui modifira
+    sa position par rapport à la taille de l'écrans */
+.avion{
+    background-image: url(../images/avionMobile.png);
+    width: 100px;
+    height: 52px;
+    left: 0px;
+    position: absolute;
+}
+
+/* Le style de base pour la section comprenant la question, l'image et les choix de réponse */
+.quiz > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/* Le style pour la section du titre du quiz */
+section .titre-question {
+    width: 95%;
+    margin-top: 1rem;
+    font-family: 'Bebas Neue', cursive;
+    text-align: center;
+    align-content: space-between;
+    margin: auto;
+    font-size: 2.5rem;
+    background-color: #5f9ea059;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+/* Le style pour la section des choix de réponse */
+section .les-choix-de-reponse {
+    width: 90vw;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+section .les-choix-de-reponse.desactiver {
+    pointer-events: none;
+}
+
+/* Le style de l'image qui change à chaque question */
+.imageIndefini{
+    height: 16rem;
+    width: 23rem;
+    margin: auto; 
+    background-size: cover;
+    border-radius: 26px;
+}
+
+/* Le style des choix de réponses, dépendament de si la réponse est bonne ou non, on lui
+    incrémente une nouvelle animation. Sur les écrant de plus de 1750px on lui ajouter une animation 
+    lorsque on hover  */
+div.choix {
+    font-size: 2rem;
+    font-weight: bold;
+    height: 23vmin;
+    line-height: 24vmin;
+    color: var(--couleur-orange);
+    position: relative;
+    transition: transform 0.5s, color 0.4s linear;
+    margin: 10px;
+    width: 19rem;
+    text-align: center;
+    border-radius: 16px;
+    font-family: 'Varela Round', sans-serif;
+    background-color: var(--couleur-base);   
+}
+
+/* Lorsque c'est une bonne réponse, on change sa couleur, sa couleur de fond, sa taille, son ombrage pour donné un 
+    aspect lumineux et une animation qui le fait allé vers la droite en 2s */
+div.choix.reponse-succes {
+    animation: bouge-droite 2s forwards;
+    color: var(--couleur-bonne-reponse);
+    background-color: var(--couleur-bonne-reponse-contour);
+    scale: 0.95;
+    border-radius: 0px;
+    box-shadow: 0 0 35px var(--couleur-bonne-reponse-contour);
+    transition: color 1s, background-color 1s, border-radius 0.5s, scale .5s, box-shadow .5s;
+}
+
+/* On applique une bordure dans le haut invisible au départ qui apparaitera lorsque la question sera clicker en 4.5s
+    on la fait bouger à droite en meme temps que la div du choix grace à l'animation bouge-droit */
+div.choix.reponse-succes::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 2px solid var(--couleur-bonne-reponse);
+    border-right: 2px solid var(--couleur-bonne-reponse);
+    animation: bordure-haut 4.5s forwards, bouge-droite 2s 3s forwards;
+}
+
+/* On applique une bordure dans le bas invisible au départ qui apparaitera lorsque la question sera clicker en 4.5s
+    on la fait bouger à droite en meme temps que la div du choix grace à l'animation bouge-droit*/
+div.choix.reponse-succes::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 2px solid var(--couleur-bonne-reponse);
+    border-left: 2px solid var(--couleur-bonne-reponse);
+    animation: bordure-bas 4.5s forwards, bouge-droite 2s 3s forwards;
+
+}
+
+/* L'animation pour la bordure du haut, on commence par la faire allé vers la droite
+    , une fois la largeur du choix rendu on la fait descendre*/
+@keyframes bordure-haut{
+    from{
+        width: 0; height: 0;
+    }
+    12.5%{
+        width: 19rem; height: 0;
+    }
+    25%{
+        width: 19rem; height: 23vmin;
+    }
+    37.5%{
+        width: 19rem; height: 23vmin;
+    }
+    50%{
+        width: 19rem; height: 23vmin;
+    }
+    75%{
+        width: 19rem; height: 23vmin;
+    }
+    to{
+        width: 19rem; height: 23vmin;
+    }
+}
+
+/* L'animation pour la bordure du bas, on commence par la faire allé vers la gauche
+    , une fois la largeur du choix rendu on la fait monté, on doit attendre que la première
+    animation soit rendu au meme endroit avant de commencé, il faut donc commencé avec un opacité 0*/
+@keyframes bordure-bas{
+    from{
+        width: 0; height: 0; opacity: 0;
+    }
+    10%{
+        width: 0; height: 0; opacity: 0;
+    }
+    20%{
+        width: 0; height: 0; opacity: 0;
+    }
+    30%{
+        width: 19rem; height: 0;  opacity: 1;
+    }
+    40%{
+        width: 19rem; height: 23vmin;  opacity: 1;
+    }
+    50%,60%,70%,to{
+        width: 19rem; height: 23vmin;  opacity: 1;
+    }
+}
+
+/* L'animation pour la bonne réponse, on commence par la faire retationné de droite à gauche puis 
+    l'on transforme sa position en X vers la droite*/
+@keyframes bouge-droite{
+    from{ 
+        transform: translateX(0%); 
+    }
+    from, 35% {
+        rotate: 0deg;
+    }
+    5%, 15%, 25% {
+        rotate: 10deg;
+    }
+    10%, 20%, 30% {
+       rotate: -10deg;
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    to{
+        transform: translateX(300%);    
+    }
+}
+
+/* Lorsque c'est une mauvaise réponse, on change sa couleur, sa couleur de fond, sa taille, son ombrage pour donné un 
+    aspect lumineux et une animation qui le fait allé vers la gauche en 2s */
+div.choix.reponse-echec {
+    animation: bouge-gauche 2s forwards;
+    color: var(--couleur-mauvaise-reponse);
+    background-color: var(--couleur-mauvaise-reponse-contour);
+    scale: 0.95;
+    border-radius: 0px;
+    box-shadow: 0 0 35px var(--couleur-mauvaise-reponse-contour);
+    transition: color 1s, background-color 1s, border-radius 0.5s, scale .5s, box-shadow .5s;
+}
+
+/* On applique une bordure dans le haut invisible au départ qui apparaitera lorsque la question sera clicker en 4.5s
+    on la fait bouger à droite en meme temps que la div du choix grace à l'animation bouge-gauche */
+div.choix.reponse-echec::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 2px solid var(--couleur-mauvaise-reponse);
+    border-left: 2px solid var(--couleur-mauvaise-reponse);
+    animation: bordure-bas 4.5s forwards , bouge-gauche 2s 3s forwards ;
+}
+
+/* On applique une bordure dans le bas invisible au départ qui apparaitera lorsque la question sera clicker en 4.5s
+    on la fait bouger à droite en meme temps que la div du choix grace à l'animation bouge-gauche */
+div.choix.reponse-echec::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 2px solid var(--couleur-mauvaise-reponse);
+    border-right: 2px solid var(--couleur-mauvaise-reponse);
+    animation: bordure-haut 4.5s forwards, bouge-gauche 2s 3s forwards ;
+}
+
+
+/* L'animation pour la mauvaise réponse, on commence par la faire retationné de droite à gauche puis 
+    l'on transforme sa position en X vers la gauche*/
+@keyframes bouge-gauche{
+    from{ 
+        transform: translateX(0%);
+    }
+    from, 35% {
+        rotate: 0deg;
+    }
+    5%, 15%, 25% {
+        rotate: 10deg;
+    }
+    10%, 20%, 30% {
+       rotate: -10deg;
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    to{
+        transform: translateX(-300%);   
+    }
+}
+
+/* ///////////////////////////////////////////////////////////////////////// FIN ///////////////////////////////////////// */
+
+/* Style de base de la partie fin*/
+.fin{
+    width: 100%;
+    height: 107vh;
+    margin: 0 auto;
+    background-image: url(../images/FondFin.jpg);
+    flex-direction: column;
+    position: absolute;
+    top: 65rem;
+    background-size: cover;
+}
+
+/* Lanimation que l'on appel par programmation que l'on applique à .fin qui fait monté
+    la partie de la fin vers le haut une fois toute les questions répondus */
+@keyframes bouger-fin {
+    from{
+        transform: translateY(-0%);
+    }
+    40%{
+        transform: translateY(-0%);
+    }
+    to{
+        transform: translateY(-100%);
+    }
+}
+
+/* Lanimation que l'on appel par programmation que l'on applique à .fin qui fait descendre
+    la partie de la fin vers le bas une fois le bouton rejouer cliqué */
+@keyframes remettre-quiz{
+    from{
+        transform: translateY(-100%);
+    }
+    40%{
+        transform: translateY(-100%);
+    }
+    to{
+        transform: translateY(-0%);
+    }  
+}
+/* Le style de base de la div qui comprend le HighScore, le bouton rejouer, le score et la phrase de fin */
+.div-fin{
+    background-color: #787878bd;
+    width: 36vh;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 12px;
+}
+
+/* Le style du texte du HighScore */
+.Highscore{
+    font-family: monospace;
+    font-size: 2.5vh;
+}
+
+/* Le style de base du bouton rejouer, qui grace à son ombrage on crée un effet 3D */
+.rejouer{
+    background-color: var(--couleur-orange);
+    height: 6vh;
+    width: 27vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: 'Bebas Neue';
+    letter-spacing: 7px;
+    border-radius: 12px;
+    box-shadow: 0 6px var(--couler-orange-pale);
+    position: relative;
+}
+
+/* Lorsque on le hover, il rentre un peut */
+.rejouer:hover{
+    box-shadow: 0 4px var(--couler-orange-pale);
+    top: 2px;
+}
+
+/* Lorsque on click dessus il s'enfonce*/
+.rejouer:active{
+    box-shadow: 0 0 var(--couler-orange-pale);
+    top: 6px;
+}
+
+/* Le résulats et la pharse sont dans la meme div, on let met donc en colonne*/
+.enonce-fin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Le style de la partie qui indique le résultat */
+.resultat{
+    font-size: 2.3vh;
+    font-family: monospace;
+    margin-bottom: 19px;
+}
+
+/* Le style de la partie qui affiche la réponse */
+#reponse{
+    font-size: 2.5vh;
+    font-family: cursive;
+    text-align: center;
+}
+
+/*////////////////////////////////////////////////////////////// PORTION ADAPTATIVE /////////////////////////////////////// */
+
+/* Pour les écrant sous 576px par 900px(petite tablette) */
+@media screen and (min-width:576px){
+
+    header{
+        top: -2vh;
+        min-height: 8vh;
+    }
+    
+    .quiz > section {
+        height: 59vh;
+        margin-bottom: 23vh;
+    }
+
+    /* On agrandie le titre */
+    section .titre-question{
+        font-size: 2.8rem;  
+        margin-bottom: 40px;
+    }
+
+    /* On agrandie l'image */
+    .imageIndefini{
+        height: 18rem;
+        width: 33rem;
+        margin-bottom: 1vh;;
+    }
+
+    /* On les place en carré grace à wrap */
+    section .les-choix-de-reponse{
+    flex-direction: row;
+    flex-wrap: wrap;
+    line-height: 19vmin;
+    }
+    
+    /* On agrandie les choix */
+    div.choix{
+        width: 17rem;
+        height: 18vmin;
+        line-height: 20vmin;
+    }
+
+    /* On positione la fin */
+    .fin{      
+        height: 107vh;
+        background-size: cover;
+    }
+
+    /* On ajuste la taille des bordures par rapport à la taille des div des choix de réponses */
+    @keyframes bordure-haut{
+    from{width: 0; height: 0;}
+    12.5%{width: 17rem; height: 0;}
+    25%{width: 17rem; height: 23vmin;}
+    37.5%{width: 17rem; height: 23vmin;}
+    50%{width: 17rem; height: 23vmin;}
+    75%{width: 17rem; height: 23vmin;}
+    to{width: 17rem; height: 23vmin;}
+    }
+    
+    @keyframes bordure-bas{
+    from{width: 0; height: 0; opacity: 0;}
+    10%{width: 0; height: 0; opacity: 0;}
+    20%{width: 0; height: 0; opacity: 0;}
+    30%{width: 17rem; height: 0;  opacity: 1;}
+    40%{ width: 17rem; height: 23vmin;  opacity: 1;}
+    50%,60%,70%,to{ width: 17rem; height: 23vmin;  opacity: 1;}
+    }
+
+}
+
+/* Pour les écrant sous 768px par 900px(grande tablette)  */
+@media screen and (min-width:768px) {
+    
+    /* On replace le header  */
+    header{
+        min-height: 13vh;
+    }
+    /* Cn cange l'image de l'avion pour qu'il soit plus gros */
+    .avion{
+        background-image: url(../images/avionTablette.png);
+        width: 200px;
+        height: 103px;
+    }
+
+    /* Change l'image du quiz */
+    .quiz{
+        background-image: url(../images/fondQuizGrabdEcran.jpg) ;
+    }
+
+    /* Donne plus d'espace au titre  */
+    section .titre-question{  
+        margin-bottom: 28px;
+    }
+
+    /* Donne plus d'espace à l'image  */
+    .imageIndefini{
+        margin-bottom: 1vh;
+    }
+
+    
+    /* Agrandi les choix de réponses */
+    div.choix{
+        height: 21vmin;
+        line-height: 22vmin;
+        width: 22rem;
+        font-size: 2.5rem;
+        }
+
+    /* On ajuste la taille des bordures par rapport à la taille des div des choix de réponses */
+    @keyframes bordure-haut{
+    from{width: 0; height: 0;}
+    12.5%{width: 22rem; height: 0;}
+    25%{width: 22rem; height: 21vmin;}
+    37.5%{width: 22rem; height: 21vmin;}
+    50%{width: 22rem; height: 21vmin;}
+    75%{width: 22rem; height: 21vmin;}
+    to{width: 22rem; height: 21vmin;}
+    }
+    
+    @keyframes bordure-bas{
+    from{width: 0; height: 0; opacity: 0;}
+    10%{width: 0; height: 0; opacity: 0;}
+    20%{width: 0; height: 0; opacity: 0;}
+    30%{width: 22rem; height: 0;  opacity: 1;}
+    40%{ width: 22rem; height: 21vmin;  opacity: 1;}
+    50%,60%,70%,to{ width: 22rem; height: 21vmin;  opacity: 1;}
+    }    
+
+    .fin{
+        background-image: url(../images/fondFinGranEcran.jpg);
+    }
+}
+
+/* Pour les écrant sous 1080 (écran)  */
+@media screen and (min-width:1080px) {
+    
+    /* Grossi la taille de la question  */
+    section .titre-question{
+        font-size: 3.5rem;
+    }
+
+    /* Grossi la taille de l'image  */
+    .imageIndefini{
+        height: 20rem;
+        width: 30rem;
+    }
+
+    /* Grossi la taille des choix  */
+    div.choix{
+        height: 15vmin;
+        line-height: 16vmin;
+        width: 30rem;
+        font-size: 2.9rem;
+    }
+
+    /* On ajuste la taille des bordures par rapport à la taille des div des choix de réponses */
+    @keyframes bordure-haut{
+    from{width: 0; height: 0;}
+    12.5%{width: 30rem; height: 0;}
+    25%{width: 30rem; height: 17vmin;}
+    37.5%{width: 30rem; height: 17vmin;}
+    50%{width: 30rem; height: 17vmin;}
+    75%{width: 30rem; height: 17vmin;}
+    to{width: 30rem; height: 17vmin;}
+    }
+    
+    @keyframes bordure-bas{
+    from{width: 0; height: 0; opacity: 0;}
+    10%{width: 0; height: 0; opacity: 0;}
+    20%{width: 0; height: 0; opacity: 0;}
+    30%{width: 30rem; height: 0;  opacity: 1;}
+    40%{ width: 30rem; height: 17vmin;  opacity: 1;}
+    50%,60%,70%,to{ width: 30rem; height: 17vmin;  opacity: 1;}
+    }   
+
+}
+
+
+/* Pour les écrant sous 1230px (grand écran)  */
+@media screen and (min-width:1230px){
+
+    /* Replace le header */
+    header{
+        top: 0vh;
+        min-height: 14vh;
+    }
+
+    
+    /* Chnage la disposition flex  */
+    .quiz > section{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    /* Grossi la taille de la question  */
+    section .titre-question{
+        font-size: 4.5rem;
+    }
+
+    /* Grossi la taille de l'image  */
+    .imageIndefini{
+    height: 23rem;
+    width: 36rem;
+    margin-left: 6vh;
+    }
+
+    /*Change la dispositon flex des choix */
+    section .les-choix-de-reponse{
+        width: 0vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        margin-right: 2vh;
+    }
+ 
+    /* Grossi la taille des choix  */
+    div.choix{
+        height: 21vmin;
+        line-height: 22vmin;
+        width: 15rem;
+        font-size: 1.8rem;
+        margin: 1vh 3vh 9vh 8vh;
+    }
+
+    /* On ajuste la taille des bordures par rapport à la taille des div des choix de réponses */
+   @keyframes bordure-haut{
+    from{width: 0; height: 0;}
+    12.5%{width: 15rem; height: 0;}
+    25%{width: 15rem; height: 21vmin;}
+    37.5%{width: 15rem; height: 21vmin;}
+    50%{width: 15rem; height: 21vmin;}
+    75%{width: 15rem; height: 21vmin;}
+    to{width: 15rem; height: 21vmin;}
+    }
+    
+    @keyframes bordure-bas{
+    from{width: 0; height: 0; opacity: 0;}
+    10%{width: 0; height: 0; opacity: 0;}
+    20%{width: 0; height: 0; opacity: 0;}
+    30%{width: 15rem; height: 0;  opacity: 1;}
+    40%{ width: 15rem; height: 21vmin;  opacity: 1;}
+    50%,60%,70%,to{ width: 15rem; height: 21vmin;  opacity: 1;}
+    }   
+    
+     /* On ajuste la dispositon de l'animation droite et gauche pour que la div sorte de l'écran */
+    @keyframes bouge-droite{
+    from{ transform: translateX(0%);}
+    from, 35% { rotate: 0deg;}
+    5%, 15%, 25% {rotate: 10deg;}
+    10%, 20%, 30% {rotate: -10deg;}
+    40% {transform: translateX(0%);}
+    to{transform: translateX(300%);}
+    }
+     
+    @keyframes bouge-gauche{
+    from{ transform: translateX(0%);}
+    from, 35% {rotate: 0deg;}
+    5%, 15%, 25% {rotate: 10deg;}
+    10%, 20%, 30% {rotate: -10deg;}
+    40% {transform: translateX(0%);}
+    to{transform: translateX(-400%);}
+    }
+
+    /* Repositionne la fin*/
+    .fin{
+        top: 64rem;
+        height: 108vh;
+    }
+
+}
+
+/* Pour les écran de 1730px (grand écrant) */
+@media screen and (min-width:1730px) {
+    /* Replace le header */
+    header{
+        top: 3vh;
+        min-height: 19vh;
+    }
+
+    /*Change la disposion flex */
+    .quiz > section{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    /* Grossi le titre */
+    section .titre-question{
+        font-size: 4.5rem;
+        margin-bottom: 55px;
+    }
+
+     
+    /* Grossi l'image'  */
+    .imageIndefini{
+    height: 23rem;
+    width: 36rem;
+    margin-left: 6vh;
+    }
+
+    /*Change la disposion flex */
+    section .les-choix-de-reponse{
+        width: 0vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        margin-right: 3vh;
+    }
+ 
+    /* Grossi les choix  */
+    div.choix{
+        height: 20vmin;
+        line-height: 21vmin;
+        width: 24rem;
+        font-size: 2.8rem;
+        margin: 1vh 3vh 1vh 8vh;
+    }
+
+ /* On ajuste la taille des bordures par rapport à la taille des div des choix de réponses */
+   @keyframes bordure-haut{
+    from{width: 0; height: 0;}
+    12.5%{width: 24rem; height: 0;}
+    25%{width: 24rem; height: 22vmin;}
+    37.5%{width: 24rem; height: 22vmin;}
+    50%{width: 24rem; height: 22vmin;}
+    75%{width: 24rem; height: 22vmin;}
+    to{width: 24rem; height: 22vmin;}
+    }
+    
+    @keyframes bordure-bas{
+    from{width: 0; height: 0; opacity: 0;}
+    10%{width: 0; height: 0; opacity: 0;}
+    20%{width: 0; height: 0; opacity: 0;}
+    30%{width: 24rem; height: 0;  opacity: 1;}
+    40%{ width: 24rem; height: 22vmin;  opacity: 1;}
+    50%,60%,70%,to{ width: 24rem; height: 22vmin;  opacity: 1;}
+    }   
+
+     /* On ajuste la dispositon de l'animation droite et gauche pour que la div sorte de l'écran */    
+    @keyframes bouge-droite{
+    from{ transform: translateX(0%);}
+    from, 35% { rotate: 0deg;}
+    5%, 15%, 25% {rotate: 10deg;}
+    10%, 20%, 30% {rotate: -10deg;}
+    40% {transform: translateX(0%);}
+    to{transform: translateX(300%);}
+    }
+    
+    @keyframes bouge-gauche{
+    from{ transform: translateX(0%);}
+    from, 35% {rotate: 0deg;}
+    5%, 15%, 25% {rotate: 10deg;}
+    10%, 20%, 30% {rotate: -10deg;}
+    40% {transform: translateX(0%);}
+    to{transform: translateX(-400%);}
+    }
+
+    /* Si on survole les choix on change la couleur et la taille */
+    div.choix:hover{
+        color: var(--couleur-base);
+        transform: scale(1.1);
+    
+    }
+
+    /* On fais apparaitre une nouvele forme à la div choix */
+    div.choix::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--couleur-orange);
+        z-index: -1;
+        transition: transform 0.5s;
+        transform-origin: 0 0;
+        transition-timing-function: cubic-bezier(0.5,1.6,0.4,0.7);
+        transform: scaleY(0);
+        border-radius: 16px;
+    }
+    
+    div.choix:hover::before{
+        transform: scaleY(1);
+    }
+
+    /* Repositionne la fin */
+    .fin{
+        top: 57rem;
+        height: 112vh;
+    }
+}    
+
+/* Pour les écrant de 2000px (tres garnd écrans*/ 
+@media screen and (min-width:2000px){
+    /* Ajuste le header*/
+    header{
+        top: 0vh;
+        min-height: 15vh;
+    }
+        /* Ajuste la fin*/
+    .fin{
+    top: 56rem;
+    height: 112vh;
+    }
+
+
+}
+
+
+

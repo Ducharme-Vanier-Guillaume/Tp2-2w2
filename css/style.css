@@ -1,0 +1,49 @@
+
+/* Style.css sert à styliser les éléments de base du project  */
+
+
+/* Il faut ajouter les éléments before et after dans la mise en page de base  */
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select:none;
+}
+
+/* Détermine la hauteur, la largeur de la page html*/
+
+html {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: clamp(14px, 0.5rem + 0.5vw, 24px);
+}
+
+
+/* Pour la partiee body, on met un arrière plan blanc et si on ne voit pas si quelque chose dépasse */
+body {
+    max-width: 100%;
+    height: 100%;  
+    background-color: var(--couleur-base);
+    overflow: hidden;
+    color: var(--couleur-base);
+}
+
+/* Pour la partie main, on met les éléments en display flex en colonne */
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* On place le header et on choisie sa hauteur et sa largeur par rapport au reste du body */
+header {
+    min-height: 9vh;
+    width: 100%;
+    flex: 0 0 auto;
+}
+

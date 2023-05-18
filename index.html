@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+
+<head>
+    <title>Tp2 Guillaume Ducharme-Vanier</title>
+    <meta charset="UTF-8" />
+
+    <!-- Ajustement de la taille du viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Polices de caractères utilisées-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet">
+    
+
+    <!-- Polices d'icônes utilisées-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Références aux CSS et police écriture -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleDuQuiz.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel+Decorative:wght@700&family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel+Decorative:wght@700&family=Varela+Round&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Comprend la partie de l'intro, l'animation au départ.. -->
+    <main class="intro">
+        <div class="chargement"></div>
+        <div class="texte-intro">Quiz sur le paysage mondial </div>
+        <div class="conteneur">
+            <div class="progres1 progres1-avance">
+                <div class="progres1-bar2"></div>
+              </div>
+        </div>
+        <!-- Le bouton pour commencer le jeu vient ici -->
+    </main>
+    
+    <!-- La partie quiz, ou se déoule les questions, la barre d'avancement et les images -->
+    <main class="quiz">
+        <header>
+           <div class="avion"></div>
+        </header>
+        
+        <section>
+            <div class="titre-question"></div>
+                <div class="image-question">
+                    <div class="imageIndefini"></div>
+                </div>
+            <div class="les-choix-de-reponse"></div>
+        </section>
+    </main>
+    
+    
+    <!-- La partie pour le fin du quiz, le nombre de bonne réponse, le highScore et la phrase de fin -->
+    <main class="fin">
+        <div class="div-fin">
+            <div>
+                <p class="Highscore">Meilleur score : <span id="HighScore">0</span></p>
+            </div>
+            <div class="rejouer"></div>
+                <div>
+                    <p class="enonce-fin"><span id="reponse"> 0</span></p>
+                </div>
+        </div>
+    </main>
+
+    <!-- Chargement des scripts -->
+    <script src="js/index.js"></script>
+    <script src="js/questionsQuiz.js"></script>
+</body>
+
+</html>
